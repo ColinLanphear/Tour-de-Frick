@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
+using UnityEngine.SceneManagement;
+
 
 public class Hero : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Hero : MonoBehaviour
     // Start is called before the first frame update
     [Header("Set in Inspector")]
     //movement
-    public float speed = 30f;
+    public float speed = 50f;
     public float rollMult = 15f;
     public float pitchMult = -10f;
 
@@ -22,7 +23,7 @@ public class Hero : MonoBehaviour
         }
         else
         {
-            Debug.LogError("assined second script");
+            Debug.LogError("assigned second script");
         }
     }
 
@@ -38,5 +39,14 @@ public class Hero : MonoBehaviour
         transform.position = pos;
 
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            SceneManager.LoadScene("End2");
+
+        }
     }
 }
